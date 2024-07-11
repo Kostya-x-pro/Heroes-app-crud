@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 import { createSelector } from 'reselect';
 
-import { heroesFetching, heroesFetched, heroesFetchingError, heroDeleted } from '../../actions';
+import {fetchHeroes, heroDeleted } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -31,10 +31,13 @@ const HeroesList = () => {
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(heroesFetching);
-        request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
+        dispatch(fetchHeroes(request));
+        // Эта функция у нас вынесена в комплексный actions для того что бы избавиться от повторяющегося кода 
+
+        // dispatch(heroesFetching);
+        // request("http://localhost:3001/heroes")
+        //     .then(data => dispatch(heroesFetched(data)))
+        //     .catch(() => dispatch(heroesFetchingError()))
 
         // eslint-disable-next-line
     }, []);
@@ -45,7 +48,6 @@ const HeroesList = () => {
     const onDelete = useCallback((id) => {
         // Удаление персонажа по его id
         request(`http://localhost:3001/heroes/${id}`, "DELETE")
-            .then(data => console.log(data, 'Deleted'))
             .then(dispatch(heroDeleted(id)))
             .catch(err => console.log(err));
         // eslint-disable-next-line  
