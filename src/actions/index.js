@@ -36,11 +36,14 @@ export const filtersFetchingError = () => {
     }
 }
 
-export const activeFilterChanged = (filter) => {
-    return {
-        type: 'ACTIVE_FILTER_CHANGED',
-        payload: filter
-    }
+// Поскольку мы подключили middleWare теперь в actions мы можем передовать не только объекты но и функции (поэтому наша функция может быть расширена) Этот функционал позволяет нам сделать то что наши фильтры персонажей будут срабатывать через 1 секунду
+export const activeFilterChanged = (filter) => (dispatch) => {
+    setTimeout(() => {
+        dispatch({
+            type: 'ACTIVE_FILTER_CHANGED',
+            payload: filter
+        })
+    }, 1000)
 }
 
 export const heroCreated = (hero) => {
