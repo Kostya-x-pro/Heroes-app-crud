@@ -7,6 +7,8 @@ import { heroesFetching, heroesFetched, heroesFetchingError, heroDeleted } from 
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
+import './heroesList.scss';
+
 // Задача для этого компонента:
 // При клике на "крестик" идет удаление персонажа из общего состояния
 // Усложненная задача:
@@ -32,6 +34,7 @@ const HeroesList = () => {
     const onDelete = useCallback((id) => {
         // Удаление персонажа по его id
         request(`http://localhost:3001/heroes/${id}`, "DELETE")
+            .then(data => console.log(data, 'Deleted'))
             .then(dispatch(heroDeleted(id)))
             .catch(err => console.log(err));
         // eslint-disable-next-line  
