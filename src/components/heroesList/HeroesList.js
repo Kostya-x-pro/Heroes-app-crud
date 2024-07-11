@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 import { createSelector } from 'reselect';
 
-import {fetchHeroes, heroDeleted } from '../../actions';
+import {fetchHeroes, fetchDeleteHeroes, heroDeleted } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -32,24 +32,14 @@ const HeroesList = () => {
 
     useEffect(() => {
         dispatch(fetchHeroes(request));
-        // Эта функция у нас вынесена в комплексный actions для того что бы избавиться от повторяющегося кода 
-
-        // dispatch(heroesFetching);
-        // request("http://localhost:3001/heroes")
-        //     .then(data => dispatch(heroesFetched(data)))
-        //     .catch(() => dispatch(heroesFetchingError()))
-
-        // eslint-disable-next-line
     }, []);
 
-    // Функция берет id и по нему удаляет ненужного персонажа из store
-    // ТОЛЬКО если запрос на удаление прошел успешно
-    // Отслеживайте цепочку действий actions => reducers
     const onDelete = useCallback((id) => {
         // Удаление персонажа по его id
-        request(`http://localhost:3001/heroes/${id}`, "DELETE")
-            .then(dispatch(heroDeleted(id)))
-            .catch(err => console.log(err));
+        dispatch(fetchDeleteHeroes(request, id))
+        // request(`http://localhost:3001/heroes/${id}`, "DELETE")
+        //     .then(dispatch(heroDeleted(id)))
+        //     .catch(err => console.log(err));
         // eslint-disable-next-line  
     }, [request]);
 

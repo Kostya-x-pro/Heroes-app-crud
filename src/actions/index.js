@@ -6,6 +6,19 @@ export const fetchHeroes = (request) => (dispatch) => {
         .catch(() => dispatch(heroesFetchingError()))
 }
 
+export const fetchFilterHeroes = (request) => (dispatch) => {
+    dispatch(filtersFetching());
+    request("http://localhost:3001/filters")
+        .then(data => dispatch(filtersFetched(data)))
+        .catch(() => dispatch(filtersFetchingError()))
+}
+
+export const fetchDeleteHeroes = (request, id) => (dispatch) => {
+    request(`http://localhost:3001/heroes/${id}`, "DELETE")
+    .then(dispatch(heroDeleted(id)))
+    .catch(err => console.log(err));
+}
+
 export const heroesFetching = () => {
     return {
         type: 'HEROES_FETCHING'
