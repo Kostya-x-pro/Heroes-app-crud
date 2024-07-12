@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import { heroCreated } from '../../actions';
+import { heroCreated } from '../heroesList/heroesSlice';
 
 const HeroesAddForm = () => {
     // Состояния для контроля формы
@@ -38,9 +38,7 @@ const HeroesAddForm = () => {
         }
 
         // Отправляем данные на сервер в формате JSON
-        // ТОЛЬКО если запрос успешен - отправляем персонажа в store
         request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
-            .then(res => console.log(res, 'Отправка успешна'))
             .then(dispatch(heroCreated(newHero)))
             .catch(err => console.log(err));
 
