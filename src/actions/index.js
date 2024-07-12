@@ -37,13 +37,16 @@ export const heroesFetching = createAction('HEROES_FETCHING')
 //     }
 // }
 // Когда мы используем встроенный метод createAction (нам не нужно передавать аргументы вообще! они приходят автоматически в поле "payload")
-export const heroesFetched = createAction('HEROES_FETCHED')
+export const heroesFetched = createAction('HEROES_FETCHED');
 
-export const heroesFetchingError = () => {
-    return {
-        type: 'HEROES_FETCHING_ERROR'
-    }
-}
+
+// export const heroesFetchingError = () => {
+//     return {
+//         type: 'HEROES_FETCHING_ERROR'
+//     }
+// }
+
+export const heroesFetchingError = createAction('HEROES_FETCHING_ERROR');
 
 export const filtersFetching = () => {
     return {
@@ -81,16 +84,20 @@ export const activeFilterChanged = (filter) => {
   }
 }
 
-export const heroCreated = (hero) => {
-    return {
-        type: 'HERO_CREATED',
-        payload: hero
-    }
-}
+// export const heroCreated = (hero) => {
+//     return {
+//         type: 'HERO_CREATED',
+//         payload: hero
+//     }
+// }
 
-export const heroDeleted = (id) => {
-    return {
-        type: 'HERO_DELETED',
-        payload: id
-    }
-}
+export const heroCreated = createAction('HERO_CREATED');
+
+// export const heroDeleted = (id) => {
+//     return {
+//         type: 'HERO_DELETED',
+//         payload: id
+//     }
+// }
+
+export const heroDeleted = createAction('HERO_DELETED');
