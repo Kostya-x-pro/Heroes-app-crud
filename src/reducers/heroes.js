@@ -13,29 +13,53 @@ const initialState = {
   heroesLoadingStatus: 'idle',
 }
 
-// создание редюсера встроенным методом в RTK
-const heroes = createReducer(initialState, builder => {
-    // builder - это функция которая конструирует редюсер
-    builder
-        // метод addCase принимает 2 аргумента (экшен, и стейт(который можно писать не соблюдая принципа имутабельности) т.е не нужно получать старый стейт и что то возвращать return с функции createReducer сделает всё внутри сам.)
-        .addCase(heroesFetching, state => {
-            state.heroesLoadingStatus = 'loading';
-        })
-        .addCase(heroesFetched, (state, action) => {
-            state.heroesLoadingStatus = 'idle';
-            state.heroes = action.payload;
-        })
-        .addCase(heroesFetchingError, state => {
-            state.heroesLoadingStatus = 'error';
-        })
-        .addCase(heroCreated, (state, action) => {
-            state.heroes.push(action.payload);
-        })
-        .addCase(heroDeleted, (state, action) => {
-            state.heroes = state.heroes.filter(item => item.id !== action.payload);
-        })
-        .addDefaultCase(() => {});
-})
+// создание редюсера встроенным методом в RTK (2 варинта с передачей объекта)
+const heroes = createReducer(initialState, {
+    [heroesFetching]: state => {
+                state.heroesLoadingStatus = 'loading';
+            },
+    [heroesFetched]: (state, action) => {
+                state.heroesLoadingStatus = 'idle';
+                state.heroes = action.payload;
+            },
+    [heroesFetchingError]: state => {
+                state.heroesLoadingStatus = 'error';
+            },
+    [heroCreated]:(state, action) => {
+                state.heroes.push(action.payload);
+            },
+    [heroDeleted]:(state, action) => {
+                state.heroes = state.heroes.filter(item => item.id !== action.payload);
+            },
+        },
+    [], // - массив функции сравнения оставляем просто пустым
+    state => state
+)
+
+
+// создание редюсера встроенным методом в RTK (1 варинта с передачей функции)
+// const heroes = createReducer(initialState, builder => {
+//     // builder - это функция которая конструирует редюсер
+//     builder
+//         // метод addCase принимает 2 аргумента (экшен, и стейт(который можно писать не соблюдая принципа имутабельности) т.е не нужно получать старый стейт и что то возвращать return с функции createReducer сделает всё внутри сам.)
+//         .addCase(heroesFetching, state => {
+//             state.heroesLoadingStatus = 'loading';
+//         })
+//         .addCase(heroesFetched, (state, action) => {
+//             state.heroesLoadingStatus = 'idle';
+//             state.heroes = action.payload;
+//         })
+//         .addCase(heroesFetchingError, state => {
+//             state.heroesLoadingStatus = 'error';
+//         })
+//         .addCase(heroCreated, (state, action) => {
+//             state.heroes.push(action.payload);
+//         })
+//         .addCase(heroDeleted, (state, action) => {
+//             state.heroes = state.heroes.filter(item => item.id !== action.payload);
+//         })
+//         .addDefaultCase(() => {});
+// })
 
 // оригинальный reduser 
 // const heroes = (state = initialState, action) => {
