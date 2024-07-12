@@ -1,3 +1,5 @@
+import { createAction } from "@reduxjs/toolkit";
+
 // Комплексный actionCreator (для того что бы если нам нужно получить персонажей в разных компонентах нам уже не нужно повторять этот функционал) когда мы подключили redux-thunk мы можем делать какие то побочные действия прямо в actions (расширить возможности наших actions действия других actions выполняются прямо в этом методе)
 export const fetchHeroes = (request) => (dispatch) => {
     dispatch(heroesFetching());
@@ -19,18 +21,23 @@ export const fetchDeleteHeroes = (request, id) => (dispatch) => {
     .catch(err => console.log(err));
 }
 
-export const heroesFetching = () => {
-    return {
-        type: 'HEROES_FETCHING'
-    }
-}
+// export const heroesFetching = () => {
+//     return {
+//         type: 'HEROES_FETCHING'
+//     }
+// }
 
-export const heroesFetched = (heroes) => {
-    return {
-        type: 'HEROES_FETCHED',
-        payload: heroes
-    }
-}
+// Action creator - созданный с помощью createAction функции из библеотеки redux-toolkit
+export const heroesFetching = createAction('HEROES_FETCHING')
+
+// export const heroesFetched = (heroes) => {
+//     return {
+//         type: 'HEROES_FETCHED',
+//         payload: heroes
+//     }
+// }
+// Когда мы используем встроенный метод createAction (нам не нужно передавать аргументы вообще! они приходят автоматически в поле "payload")
+export const heroesFetched = createAction('HEROES_FETCHED')
 
 export const heroesFetchingError = () => {
     return {
