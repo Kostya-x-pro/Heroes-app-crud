@@ -1,4 +1,10 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
+import {
+    createSelector, 
+    createSlice, 
+    createAsyncThunk, 
+    createEntityAdapter 
+} from "@reduxjs/toolkit";
+
 import {useHttp} from '../../hooks/http.hook';
 
 // При вызове эта функция вернет нам объект
@@ -51,7 +57,20 @@ const {actions, reducer} = heroesSlice;
 
 export default reducer;
 
-export const {selectAll} = heroesAdaptor.getSelectors(state => state.heroes)
+const {selectAll} = heroesAdaptor.getSelectors(state => state.heroes)
+
+// filteredHeroesSelector перемещён из HeroesList 
+export const filteredHeroesSelector = createSelector(
+    (state) => state.filters.activeFilter,
+    selectAll,
+    (filter, heroes) => {
+        if (filter === 'all') {
+            return heroes;
+        } else {
+            return heroes.filter(item => item.element === filter)
+        }
+    }
+);
 
 export const {
     heroesFetching,
