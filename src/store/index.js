@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import heroes from '../components/heroesList/heroesSlice';
-import filters from '../reducers/filters';
+import filters from '../components/heroesFilters/filtersSlice';
 
 // middleWarare - рассширяет только возможности dispatch (это функция которая возвращает функцию которая в свою очередь возвращает ещё одну функцию)
 const stringMiddlewara = (store) => (next) => (action) => {
