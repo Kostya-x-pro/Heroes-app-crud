@@ -1,13 +1,8 @@
-import {useHttp} from '../../hooks/http.hook';
-import { useEffect, useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useMemo } from 'react';
+import {useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 
-// import {fetchDeleteHeroes} from '../../actions';
-import { fetchHeroes, heroDeleted } from './heroesSlice';
 import { useGetHeroesQuery, useDeleteHeroMutation } from '../../api/apiSlice';
-
-
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -39,24 +34,11 @@ const HeroesList = () => {
         }
     }, [heroes, activeFilter]);
 
-    const dispatch = useDispatch();
-    const {request} = useHttp();
-
-    useEffect(() => {
-        dispatch(fetchHeroes());
-    }, []);
-
     const onDelete = useCallback((id) => {
         // Удаление персонажа по его id
-
         deleteHero(id)
-
-        // dispatch(fetchDeleteHeroes(request, id))
-        // request(`http://localhost:3001/heroes/${id}`, "DELETE")
-        //     .then(dispatch(heroDeleted(id)))
-        //     .catch(err => console.log(err));
         // eslint-disable-next-line  
-    }, [request]);
+    }, []);
 
     if (isLoading) {
         return <Spinner/>;

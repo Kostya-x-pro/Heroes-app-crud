@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import heroes from '../components/heroesList/heroesSlice';
 import filters from '../components/heroesFilters/filtersSlice';
 import { apiSlice } from '../api/apiSlice';
 
@@ -17,7 +16,6 @@ const stringMiddlewara = (store) => (next) => (action) => {
 const store = configureStore({
   // создаём наш разделённый на части редюсер
   reducer: {
-    heroes,
     filters,
     [apiSlice.reducerPath]: apiSlice.reducer
   },
