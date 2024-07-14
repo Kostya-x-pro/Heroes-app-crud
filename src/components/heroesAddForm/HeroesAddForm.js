@@ -16,12 +16,17 @@ import store from '../../store';
 
 import { heroCreated } from '../heroesList/heroesSlice';
 import { selectAll } from '../heroesFilters/filtersSlice';
+import { useCreateHeroMutation } from '../../api/apiSlice';
 
 const HeroesAddForm = () => {
     // Состояния для контроля формы
     const [heroName, setHeroName] = useState('');
     const [heroDescr, setHeroDescr] = useState('');
     const [heroElement, setHeroElement] = useState('');
+
+
+    const [createHero, {isLoading, isFetching, isError}] = useCreateHeroMutation();
+    
 
     const {filtersLoadingStatus} = useSelector(state => state.filters);
     const filters = selectAll(store.getState());
@@ -41,9 +46,11 @@ const HeroesAddForm = () => {
         }
 
         // Отправляем данные на сервер в формате JSON
-        request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
-            .then(dispatch(heroCreated(newHero)))
-            .catch(err => console.log(err));
+        // request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
+        //     .then(dispatch(heroCreated(newHero)))
+        //     .catch(err => console.log(err));
+
+        createHero(newHero).unwrap();  // unwrap (это внутрення функция что бы нормально отрабатывали isLoading, isFetching, isError)
 
         // Очищаем форму после отправки
         setHeroName('');
@@ -52,9 +59,9 @@ const HeroesAddForm = () => {
     }
 
     const renderFilters = (filters, status) => {
-        if (status === "loading") {
+        if (isLoading) {
             return <option>Загрузка элементов</option>
-        } else if (status === "error") {
+        } else if (isError) {
             return <option>Ошибка загрузки</option>
         }
         
