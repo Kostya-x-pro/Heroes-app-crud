@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Heroes-app-crud/static/css/main.35e4ba15.css",
+    "main.js": "/Heroes-app-crud/static/js/main.246a620e.js",
+    "static/media/hero_bg.jpg": "/Heroes-app-crud/static/media/hero_bg.0540b794b0424b67d780.jpg",
+    "index.html": "/Heroes-app-crud/index.html",
+    "main.35e4ba15.css.map": "/Heroes-app-crud/static/css/main.35e4ba15.css.map",
+    "main.246a620e.js.map": "/Heroes-app-crud/static/js/main.246a620e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.35e4ba15.css",
+    "static/js/main.246a620e.js"
+  ]
+}
