@@ -23,7 +23,9 @@
     "start": "concurrently \"react-scripts start\" \"npx json-server heroes.json --port 3001\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,6 +44,8 @@
   },
   "devDependencies": {
     "classnames": "^2.5.1",
+    "gh-pages": "^6.1.1",
     "json-server": "^0.17.4"
-  }
+  },
+  "homepage": "https://Kostya-x-pro.github.io/Heroes-app-crud" 
 }
